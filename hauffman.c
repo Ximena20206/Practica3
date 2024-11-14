@@ -1,24 +1,35 @@
 #include <stdio.h>
+#include <string.h>
 #include "huffman.h"
-//void almecenarCola (){
+
+//void almecenarCola ()
 //	
 //}
-void contarFrecuencias(FILE* p){
-    char ch;
-    while ((ch = fgetc(archivo)) != eof) 
-	{
-        frecuencias[(unsigned char)ch]++;
-    }
-
-    fclose(archivo);
-
-    // Imprimir las frecuencias después de leer todo el archivo
-    for (int i = 0; i < 256; i++) {
-        if (frecuencias[i] > 0) {
-            printf("Caracter '%c', Frecuencia: %d\n", i, frecuencias[i]);
-        }
-    }
+void contarFrecuencias(FILE* p) { 
+	int frecuencias[256] = {0}; 
+	int c; 
+	while ((c = fgetc(p)) != EOF){ 
+		frecuencias[(unsigned char)c]++; 
+	} 
+	for (int i = 0; i < 256; i++) { 
+		if (frecuencias[i] > 0) 
+		printf("Caracter '%c' (ASCII %d): %d veces\n", i, i, frecuencias[i]); 
+	}
 }
+void arbolBinario (){
+	
+}
+void lista(){
+	
+}
+void asignaArbol(){
+	
+}
+void grabaCompresion(){
+	
+}
+
+
 FILE* leerArchivo(char* nombreArchivo){
 	FILE* p=fopen (nombreArchivo, "r");
 	return p;
@@ -32,6 +43,6 @@ int main (int *argc, char *argv[]){
 	fprintf (stderr,"No se pudo abrir el archivo");
 		return 0;
 	}
-	void contarFrecuencias(p);
+	contarFrecuencias(p);
 	
 }
