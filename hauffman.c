@@ -1,22 +1,11 @@
 #include <stdio.h>
-typedef struct NodoHuffman 
-{
-    char caracter;
-    unsigned frecuencia;
-    struct NodoHuffman *izquierda, *derecha;
-} NodoHuffman;
-
-void contarFrecuencias(const char *nombreArchivo, int frecuencias[]) 
-{
-    FILE *archivo = fopen(nombreArchivo, "r");
-    if (archivo == NULL) 
-	{
-        perror("Error al abrir el archivo");
-        exit(1);
-    }
-
+#include "huffman.h"
+//void almecenarCola (){
+//	
+//}
+void contarFrecuencias(FILE* p){
     char ch;
-    while ((ch = fgetc(archivo)) != EOF) 
+    while ((ch = fgetc(archivo)) != eof) 
 	{
         frecuencias[(unsigned char)ch]++;
     }
@@ -30,12 +19,19 @@ void contarFrecuencias(const char *nombreArchivo, int frecuencias[])
         }
     }
 }
-/*Compilacion:
-gcc hauffman.c -o hauffman
-./hauffman archivo.ext archivovomp.ext */
+FILE* leerArchivo(char* nombreArchivo){
+	FILE* p=fopen (nombreArchivo, "r");
+	return p;
+}
+//compilacion gcc haufman.c hauffman.h-o hauffman 
+//ejecucion /.hauffman nombreArchivo
 int main (int *argc, char *argv[]){
-	int frecuencias [256]={0};
-	NodoHuffman *raiz;
-	char codigos [256][256], codigoActual [256];
-	char* nombreArchivo= argv[2];
+	char* nombreArchivo= argv[1];
+	FILE* p=leerArchivo(nombreArchivo);
+	if (p==NULL){
+	fprintf (stderr,"No se pudo abrir el archivo");
+		return 0;
+	}
+	void contarFrecuencias(p);
+	
 }
