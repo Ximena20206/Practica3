@@ -61,22 +61,22 @@ void asignaArbol(NodoHuffman* raiz){
 	if (raiz == NULL){
         return;
     }
-    if (raiz->izquierda == NULL && raiz->derecha == NULL) {
+    if (raiz->izq == NULL && raiz->der == NULL) {
         codigo[longitud] = '\0';
         strcpy(codigos[(unsigned char)raiz->caracter], codigo);
     }
 
-    if (raiz->izquierda != NULL){
+    if (raiz->izq != NULL){
         codigo[longitud] = '0';
-        asignaArbol(raiz->izquierda, codigo, longitud + 1, codigos);
+        asignaArbol(raiz->izq, codigo, longitud + 1, codigos);
     }
 
-    if (raiz->derecha != NULL){
+    if (raiz->der != NULL){
         codigo[longitud] = '1';
-        asignaArbol(raiz->derecha, codigo, longitud + 1, codigos);
+        asignaArbol(raiz->der, codigo, longitud + 1, codigos);
     }
 	
-	 if (raiz->izquierda == NULL && raiz->derecha == NULL){
+	 if (raiz->izq == NULL && raiz->der == NULL){
         codigo[longitud] = '\0';
         strcpy(codigos[(unsigned char)raiz->caracter], codigo);
         printf("Codigo para '%c': %s\n", raiz->caracter, codigo);
