@@ -53,7 +53,7 @@ void asignaArbol(NodoHuffman* raiz, char* codigo, int longitud, char codigos[256
     if (raiz->izq == NULL && raiz->der == NULL) {
         codigo[longitud] = '\0';
         strcpy(codigos[(unsigned char)raiz->caracter], codigo);
-        printf("Código para '%c': %s\n", raiz->caracter, codigo);
+        printf("Codigo para '%c': %s\n", raiz->caracter, codigo);
     }
 
     if (raiz->izq != NULL) {
@@ -100,14 +100,13 @@ FILE* leerArchivo(char* nombreArchivo) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        fprintf(stderr, "Uso: %s <archivo_entrada> <archivo_salida>\n", argv[0]);
+    if (argc != 2) {
+        fprintf(stderr, "Uso: %s <archivo_entrada> \n", argv[0]);
         return 1;
     }
 
     int i;
     char* nombreArchivo = argv[1];
-    char* archivoSalida = argv[2];
     FILE* p = leerArchivo(nombreArchivo);
     if (p == NULL) {
         fprintf(stderr, "No se pudo abrir el archivo\n");
@@ -131,8 +130,8 @@ int main(int argc, char *argv[]) {
     asignaArbol(arbol, codigo, 0, codigos);
 
     rewind(p);
-    grabaTablaDecodificacion(codigos, "tabla_decodificacion.txt");
-    grabaCompresion(p, archivoSalida, codigos);
+    grabaTablaDecodificacion(codigos, "frecuencias.txt");
+    grabaCompresion(p, "codificacion.dat", codigos);
 
     fclose(p);
     return 0;
