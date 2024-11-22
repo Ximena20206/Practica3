@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include "huffman.h"
 
 // Crear un nuevo nodo de Huffman
@@ -32,7 +33,7 @@ NodoHuffman* reconstruirArbol(char codigos[256][256]) {
                     actual = actual->der;
                 }
             }
-            actual->caracter = (char)i;
+            actual->caracter = i;
         }
     }
     return raiz;
@@ -55,23 +56,42 @@ void leerTablaDecodificacion(char codigos[256][256], const char* archivo) {
     fclose(f);
 }
 
-// Función para leer un bit del archivo comprimido
-int leerBit(FILE* archivo, int* buffer, int* posicion) {
-    if (*posicion == 8) { // Si ya hemos leído todos los bits del byte actual
-        *buffer = fgetc(archivo); // Leer el siguiente byte
-        if (*buffer == EOF) {
-            return -1; // Fin del archivo
-        }
-        *posicion = 0; // Reiniciar la posición
-    }
-
-    int bit = (*buffer >> (7 - *posicion)) & 1; // Extraer el bit actual
-    (*posicion)++; // Avanzar a la siguiente posición
-    return bit;
-}
-
 // Decodifica el archivo comprimido utilizando el árbol de Huffman
 void decodificarArchivo(NodoHuffman* raiz, const char* entrada, const char* salida) {
+    FILE *f = fopen(entrada, "r");
+    if (!f) {
+        perror("Error al abrir el archivo de codificación");
+        return;
+    }
+
+    FILE *g = fopen(salida, "wb");
+    if (!g) {
+        perror("Error al abrir el archivo de salida");
+        return;
+    }
+
+    int bit;
+    NodoHuffman* actual = raiz;
+
+    while((bit = fgetc(f)) != EOF) {
+        if (actual->der == NULL && actual->izq == NULL) {
+            fputc(actual->caracter, g);
+            actual = raiz;
+        }
+        if (bit == '0') {
+            actual = actual->izq;
+        }else if (bit == '1') {
+            actual = actual->der;
+        }
+    }
+    fputc(actual->caracter, g);
+
+    fclose(f);
+    
+    if (!g) {
+        perror("Error al abrir el archivo de salida");
+        return;
+    }
     
 }
 
@@ -81,13 +101,14 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Uso: %s <archivo_salida>\n", argv[0]);
         return 1;
     }
-
     char codigos[256][256] = {0};
     leerTablaDecodificacion(codigos, "frecuencias.txt");
-
     NodoHuffman* arbol = reconstruirArbol(codigos);
     decodificarArchivo(arbol, "codificacion.dat", argv[1]);
+    
 
     printf("Archivo decodificado correctamente en '%s'.\n", argv[1]);
+    free(arbol);
     return 0;
 }
+
