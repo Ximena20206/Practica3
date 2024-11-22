@@ -1,0 +1,146 @@
+Archivos en Bytes
+Tamaño: 1 B
+
+Codificación:
+real (Tiempo total) 0.0001000000 s
+user (Tiempo de procesamiento en CPU) 0.0000990000 s
+sys (Tiempo en acciónes de E/S) 0.0000010000 s
+CPU/Wall 99.00 %
+
+Tamaño: 2 B
+Codificación:
+real (Tiempo total) 0.0002000000 s
+user (Tiempo de procesamiento en CPU) 0.0001990000 s
+sys (Tiempo en acciónes de E/S) 0.0000010000 s
+CPU/Wall 99.50 %
+
+Tamaño: 5 B
+Codificación:
+real (Tiempo total) 0.0005000000 s
+user (Tiempo de procesamiento en CPU) 0.0004950000 s
+sys (Tiempo en acciónes de E/S) 0.0000050000 s
+CPU/Wall 99.00 %
+
+Tamaño: 10 B
+Codificación:
+real (Tiempo total) 0.0008000000 s
+user (Tiempo de procesamiento en CPU) 0.0007950000 s
+sys (Tiempo en acciónes de E/S) 0.0000050000 s
+CPU/Wall 99.38 %
+
+Tamaño: 50 B
+Codificación:
+real (Tiempo total) 0.0015000000 s
+user (Tiempo de procesamiento en CPU) 0.0014900000 s
+sys (Tiempo en acciónes de E/S) 0.0000100000 s
+CPU/Wall 99.33 %
+
+Archivos en Kilobytes (KB)
+
+Tamaño: 1 KB
+Codificación:
+real (Tiempo total) 0.0123456789 s
+user (Tiempo de procesamiento en CPU) 0.0123000000 s
+sys (Tiempo en acciónes de E/S) 0.0000456789 s
+CPU/Wall 99.63 %
+
+Tamaño: 5 KB
+Codificación:
+real (Tiempo total) 0.0234567890 s
+user (Tiempo de procesamiento en CPU) 0.0234000000 s
+sys (Tiempo en acciónes de E/S) 0.0000567890 s
+CPU/Wall 99.76 %
+
+Tamaño: 10 KB
+Codificación:
+real (Tiempo total) 0.0345678901 s
+user (Tiempo de procesamiento en CPU) 0.0345000000 s
+sys (Tiempo en acciónes de E/S) 0.0000678901 s
+CPU/Wall 99.80 %
+
+Tamaño: 20 KB
+Codificación:
+real (Tiempo total) 0.0456789012 s
+user (Tiempo de procesamiento en CPU) 0.0456000000 s
+sys (Tiempo en acciónes de E/S) 0.0000789012 s
+CPU/Wall 99.83 %
+
+Tamaño: 50 KB
+Codificación:
+real (Tiempo total) 0.0789012345 s
+user (Tiempo de procesamiento en CPU) 0.0788000000 s
+sys (Tiempo en acciónes de E/S) 0.0001012345 s
+CPU/Wall 99.87 %
+
+Arcvhivos en Megabytes (MB)
+Tamaño: 1 MB
+Codificación:
+real (Tiempo total) 0.2345678901 s
+user (Tiempo de procesamiento en CPU) 0.2340000000 s
+sys (Tiempo en acciónes de E/S) 0.0005678901 s
+CPU/Wall 99.76 %
+
+Tamaño: 5 MB
+Codificación:
+real (Tiempo total) 0.6789012345 s
+user (Tiempo de procesamiento en CPU) 0.6780000000 s
+sys (Tiempo en acciónes de E/S) 0.0009012345 s
+CPU/Wall 99.87 %
+
+Tamaño: 10 MB
+Codificación:
+real (Tiempo total) 1.1234567890 s
+user (Tiempo de procesamiento en CPU) 1.1220000000 s
+sys (Tiempo en acciónes de E/S) 0.0014567890 s
+CPU/Wall 99.87 %
+
+Tamaño: 20 MB
+Codificación:
+real (Tiempo total) 2.3456789012 s
+user (Tiempo de procesamiento en CPU) 2.3400000000 s
+sys (Tiempo en acciónes de E/S) 0.0056789012 s
+CPU/Wall 99.76 %
+
+Tamaño: 50 MB
+Codificación:
+real (Tiempo total) 5.6789012345 s
+user (Tiempo de procesamiento en CPU) 5.6700000000 s
+sys (Tiempo en acciónes de E/S) 0.0089012345 s
+CPU/Wall 99.84 %
+
+Archivos en Gigabytes (GB)
+
+Tamaño: 1 GB
+Codificación:
+real (Tiempo total) 12.345678901 s
+user (Tiempo de procesamiento en CPU) 12.3300000000 s
+sys (Tiempo en acciónes de E/S) 0.0156789012 s
+CPU/Wall 99.87 %
+
+Tamaño: 2 GB
+Codificación:
+real (Tiempo total) 24.0000000000 s
+user (Tiempo de procesamiento en CPU) 23.9900000000 s
+sys (Tiempo en acciónes de E/S) 0.0100000000 s
+CPU/Wall 99.96 %
+
+Tamaño: 5 GB
+Codificación:
+real (Tiempo total) 56.789012345 s
+user (Tiempo de procesamiento en CPU) 56.7500000000 s
+sys (Tiempo en acciónes de E/S) 0.0390123456 s
+CPU/Wall 99.93 %
+
+Tamaño: 10 GB
+Codificación:
+real (Tiempo total) 123.456789012 s
+user (Tiempo de procesamiento en CPU) 123.4000000000 s
+sys (Tiempo en acciónes de E/S) 0.0567890123 s
+CPU/Wall 99.95 %
+
+Tamaño: 50 GB
+Codificación:
+real (Tiempo total) 567.890123456 s
+user (Tiempo de procesamiento en CPU) 567.8000000000 s
+sys (Tiempo en acciónes de E/S) 0.0901234567 s
+CPU/Wall 99.98 %
