@@ -21,6 +21,8 @@ linux: ./hd archivo
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include "huffman.h"
 
@@ -136,6 +138,26 @@ void leerTablaDecodificacion(char codigos[256][256], const char* archivo) {
     fclose(f);
 }
 
+//COMENTAR AQUIIIIIIIIIIIII
+int leerBit(FILE* f, bool* finArchivo) {
+    static unsigned char buffer;
+    static int bitsRestantes = 0;
+
+    if (bitsRestantes == 0) {
+        if (fread(&buffer, sizeof(buffer), 1, f) == 1) {
+            bitsRestantes = 8;
+        } else {
+            *finArchivo = true;
+            return -1;
+        }
+    }
+
+    int bit = (buffer >> 7) & 1;
+    buffer <<= 1;
+    bitsRestantes--;
+    return bit;
+}
+
 /*
     La función "decodificarArchivo" decodifica un archivo codificado con Huffman
     y genera el archivo original.
@@ -159,41 +181,39 @@ void leerTablaDecodificacion(char codigos[256][256], const char* archivo) {
         - Nada. Genera el archivo decodificado.
 */
 void decodificarArchivo(NodoHuffman* raiz, const char* entrada, const char* salida) {
-    FILE *f = fopen(entrada, "r");
+    FILE* f = fopen(entrada, "rb");
     if (!f) {
         perror("Error al abrir el archivo de codificación");
         return;
     }
 
-    FILE *g = fopen(salida, "wb");
+    FILE* g = fopen(salida, "wb");
     if (!g) {
         perror("Error al abrir el archivo de salida");
+        fclose(f);
         return;
     }
 
-    int bit;
+    int bit, bytesLeidos = 0;
     NodoHuffman* actual = raiz;
+    unsigned char buffer;
 
-    while((bit = fgetc(f)) != EOF) {
-        if (actual->der == NULL && actual->izq == NULL) {
-            fputc(actual->caracter, g);
-            actual = raiz;
-        }
-        if (bit == '0') {
-            actual = actual->izq;
-        }else if (bit == '1') {
-            actual = actual->der;
+    while (fread(&buffer, 1, 1, f) == 1) {
+        bytesLeidos++;
+        for (int i = 7; i >= 0; i--) {
+            bit = (buffer >> i) & 1;
+            actual = (bit == 0) ? actual->izq : actual->der;
+
+            if (actual->izq == NULL && actual->der == NULL) {
+                fputc(actual->caracter, g);
+                actual = raiz;
+            }
         }
     }
-    fputc(actual->caracter, g);
+    
 
     fclose(f);
-    
-    if (!g) {
-        perror("Error al abrir el archivo de salida");
-        return;
-    }
-    
+    fclose(g);
 }
 
 /* Programa principal del decodificador*/

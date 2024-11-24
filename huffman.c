@@ -40,11 +40,11 @@ Programa que realiza la codificación de un archivo
 void contarFrecuencias(FILE* p, int* frecuencias) { 
     int byte; 
     while ((byte = fgetc(p)) != EOF) { 
-        if (byte != '\0' && byte != '\r') { // Puedes agregar más condiciones si lo necesitas
+        if (byte != '\0' && byte != '\r') {
             frecuencias[byte]++; 
         }
         //frecuencias[byte]++; 
-    } 
+    }
 }
 
 /*
@@ -167,22 +167,27 @@ NodoHuffman* arbolHuffman(NodoHuffman* raiz) {
         - Nada. Actualiza el arreglo codigos con los valores generados.
 */
 void asignaArbol(NodoHuffman* raiz, char* codigo, int longitud, char codigos[256][256]) {
+    printf("%c\n", raiz->caracter);
     if (raiz == NULL) {
         return;
     }
     if (raiz->izq == NULL && raiz->der == NULL) {
-        codigo[longitud] = '\0';
+        if (longitud == 0) { 
+            codigo[0] = '0'; 
+            longitud = 1;
+        }
+        codigo[longitud] = '\0'; 
         strcpy(codigos[(unsigned char)raiz->caracter], codigo);
-        printf("Codigo para '%c': %s\n", raiz->caracter, codigo);
+        printf("Código para '%c': %s\n", raiz->caracter, codigo);
     }
 
     if (raiz->izq != NULL) {
-        codigo[longitud] = '0';
+        codigo[longitud] = '1';
         asignaArbol(raiz->izq, codigo, longitud + 1, codigos);
     }
 
     if (raiz->der != NULL) {
-        codigo[longitud] = '1';
+        codigo[longitud] = '0';
         asignaArbol(raiz->der, codigo, longitud + 1, codigos);
     }
 }
@@ -275,7 +280,6 @@ void grabaCompresion(FILE* entrada, const char* salida, char codigos[256][256]) 
 
     fclose(f);
 }
-
 
 
 

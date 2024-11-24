@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
             lista = insertarOrdenado(lista, creaNodo(i, frecuencias[i]));
         }
     }
+    lista = insertarOrdenado(lista, creaNodo(0, INT_MAX));
 
     NodoHuffman* arbol = arbolHuffman(lista);
 
