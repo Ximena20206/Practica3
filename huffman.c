@@ -8,14 +8,6 @@ INTEGRANTES DEL EQUIPO:
 V 1.0 Noviembre 2024
 
 Programa que realiza la codificación de un archivo
-
-Compilación
-Windows: gcc huffman.c -o hd
-Linux:  gcc huffman.c -o hd
-
-Ejecución:
-windows: ./hd archivo
-linux: ./hd archivo
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,15 +40,9 @@ linux: ./hd archivo
 void contarFrecuencias(FILE* p, int* frecuencias) { 
     int byte; 
     while ((byte = fgetc(p)) != EOF) { 
-        if (byte != '\0' && byte != '\r') {
-            
+        if (byte != '\0' && byte != '\r') { // Puedes agregar más condiciones si lo necesitas
             frecuencias[byte]++; 
-            printf("\n %c\n", (char)byte);
         }
-        else{
-            printf("\n Hay retorno de carro\n ");
-        }
-        
         //frecuencias[byte]++; 
     } 
 }
@@ -298,7 +284,7 @@ FILE* leerArchivo(char* nombreArchivo) {
 }
 
 
-int main(int argc, char *argv[]) {
+/*int main(int argc, char *argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Uso: %s <archivo_entrada> \n", argv[0]);
         return 1;
@@ -334,4 +320,4 @@ int main(int argc, char *argv[]) {
 
     fclose(p);
     return 0;
-}
+}*/

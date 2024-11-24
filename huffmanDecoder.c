@@ -7,7 +7,7 @@ INTEGRANTES DEL EQUIPO:
 
 V 1.0 Noviembre 2024
 
-Programa que realiza la decodificación de un archivo
+Programa que realiza la codificación de un archivo
 
 
 Compilación
