@@ -249,12 +249,33 @@ void grabaCompresion(FILE* entrada, const char* salida, char codigos[256][256]) 
         perror("Error al abrir el archivo de salida");
         return;
     }
+
+    unsigned char buffer = 0;
+    int bitsEnBuffer = 0;
+
     int byte;
     while ((byte = fgetc(entrada)) != EOF) {
-        fputs(codigos[byte], f);
+        char* codigo = codigos[byte];
+        for (int i = 0; codigo[i] != '\0'; i++) {
+            buffer = (buffer << 1) | (codigo[i] - '0');
+            bitsEnBuffer++;
+
+            if (bitsEnBuffer == 8) {
+                fputc(buffer, f);
+                buffer = 0;
+                bitsEnBuffer = 0;
+            }
+        }
     }
+
+    if (bitsEnBuffer > 0) {
+        buffer <<= (8 - bitsEnBuffer);
+        fputc(buffer, f);
+    }
+
     fclose(f);
 }
+
 
 
 
