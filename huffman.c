@@ -213,7 +213,7 @@ void grabaTablaDecodificacion(char codigos[256][256], const char* archivo) {
     }
     for (int i = 0; i < 256; i++) {
         if (codigos[i][0] != '\0') {
-            fprintf(f, "%c: %s\n", i, codigos[i]);
+            fprintf(f, "%d: %s\n", i, codigos[i]);
         }
     }
     fclose(f);

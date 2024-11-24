@@ -127,10 +127,11 @@ void leerTablaDecodificacion(char codigos[256][256], const char* archivo) {
     }
     char linea[512];
     while (fgets(linea, sizeof(linea), f)) {
-        char caracter;
+        int caracter;
         char codigo[256];
-        sscanf(linea, "%c: %s", &caracter, codigo);
+        sscanf(linea, "%d: %s", &caracter, codigo);
         strcpy(codigos[(unsigned char)caracter], codigo);
+        printf("Caracter: %c, Codigo: %s\n", caracter, codigo);
     }
     fclose(f);
 }
