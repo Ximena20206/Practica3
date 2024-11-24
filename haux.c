@@ -1,29 +1,8 @@
-/*
-INTEGRANTES DEL EQUIPO:
-- Barajas Pacheco Harol Fabian
-- Morán Diaz Barriga Jorge
-- Rocha Arellano Ximena Yulian
-- Rosales Barraza Erick Efren
 
-V 1.0 Noviembre 2024
-
-Programa que realiza la codificación de un archivo
-
-Compilación
-Windows: gcc huffman.c -o hd
-Linux:  gcc huffman.c -o hd
-
-Ejecución:
-windows: ./hd archivo
-linux: ./hd archivo
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "huffman.h"
-
-
-
 /*
     En la siguiente función "contarFrecuencias", se cuentan las frecuencias de cada carácter
     en un archivo dado.
@@ -45,21 +24,7 @@ linux: ./hd archivo
     Devuelve:
         - Nada. Actualiza directamente el arreglo de frecuencias.
 */
-void contarFrecuencias(FILE* p, int* frecuencias) { 
-    int byte; 
-    while ((byte = fgetc(p)) != EOF) { 
-        if (byte != '\0' && byte != '\r') {
-            
-            frecuencias[byte]++; 
-            printf("\n %c\n", (char)byte);
-        }
-        else{
-            printf("\n Hay retorno de carro\n ");
-        }
-        
-        //frecuencias[byte]++; 
-    } 
-}
+void contarFrecuencias(FILE* p, int* frecuencias);
 
 /*
     La función "creaNodo" crea un nuevo nodo para el árbol de Huffman.
@@ -79,15 +44,7 @@ void contarFrecuencias(FILE* p, int* frecuencias) {
     Devuelve:
         - Un puntero al nodo recién creado.
 */
-NodoHuffman* creaNodo(int ch, int valor) {
-    NodoHuffman* nuevoNodo = (NodoHuffman*)malloc(sizeof(NodoHuffman)); 
-    nuevoNodo->valor = valor; 
-    nuevoNodo->caracter = (char)ch;
-    nuevoNodo->izq = NULL; 
-    nuevoNodo->der = NULL; 
-    nuevoNodo->sig = NULL; 
-    return nuevoNodo;
-}
+NodoHuffman* creaNodo(int ch, int valor);
 
 /*
     En la siguiente función "insertarOrdenado", se inserta un nodo en una lista enlazada
@@ -110,19 +67,7 @@ NodoHuffman* creaNodo(int ch, int valor) {
     Devuelve:
         - Nada. Actualiza directamente la lista enlazada.
 */
-NodoHuffman* insertarOrdenado(NodoHuffman* lista, NodoHuffman* nuevo) { 
-    if (!lista || nuevo->valor <= lista->valor) { 
-        nuevo->sig = lista; 
-        return nuevo; 
-    } 
-    NodoHuffman* actual = lista; 
-    while (actual->sig && actual->sig->valor < nuevo->valor) { 
-        actual = actual->sig; 
-    } 
-    nuevo->sig = actual->sig; 
-    actual->sig = nuevo; 
-    return lista; 
-}
+NodoHuffman* insertarOrdenado(NodoHuffman* lista, NodoHuffman* nuevo);
 
 /*
     En la siguiente función "arbolHuffman", se construye un árbol de Huffman a partir
@@ -147,17 +92,7 @@ NodoHuffman* insertarOrdenado(NodoHuffman* lista, NodoHuffman* nuevo) {
     Devuelve:
         - Un puntero al nodo raíz del árbol de Huffman.
 */
-NodoHuffman* arbolHuffman(NodoHuffman* raiz) {
-    while (raiz && raiz->sig) {
-        NodoHuffman* siguiente = raiz->sig;
-        NodoHuffman* combinado = creaNodo(-1, raiz->valor + siguiente->valor); 
-        combinado->izq = raiz; 
-        combinado->der = siguiente; 
-        raiz = siguiente->sig; 
-        raiz = insertarOrdenado(raiz, combinado);
-    }
-    return raiz;
-}
+NodoHuffman* arbolHuffman(NodoHuffman* raiz);
 
 /*
     La función "asignaArbol" genera los códigos binarios de cada carácter
@@ -180,26 +115,7 @@ NodoHuffman* arbolHuffman(NodoHuffman* raiz) {
     Devuelve:
         - Nada. Actualiza el arreglo codigos con los valores generados.
 */
-void asignaArbol(NodoHuffman* raiz, char* codigo, int longitud, char codigos[256][256]) {
-    if (raiz == NULL) {
-        return;
-    }
-    if (raiz->izq == NULL && raiz->der == NULL) {
-        codigo[longitud] = '\0';
-        strcpy(codigos[(unsigned char)raiz->caracter], codigo);
-        printf("Codigo para '%c': %s\n", raiz->caracter, codigo);
-    }
-
-    if (raiz->izq != NULL) {
-        codigo[longitud] = '0';
-        asignaArbol(raiz->izq, codigo, longitud + 1, codigos);
-    }
-
-    if (raiz->der != NULL) {
-        codigo[longitud] = '1';
-        asignaArbol(raiz->der, codigo, longitud + 1, codigos);
-    }
-}
+void asignaArbol(NodoHuffman* raiz, char* codigo, int longitud, char codigos[256][256]);
 
 /*
     La función "grabaTablaDecodificacion" escribe los códigos de Huffman en un archivo.
@@ -219,20 +135,7 @@ void asignaArbol(NodoHuffman* raiz, char* codigo, int longitud, char codigos[256
     Devuelve:
         - Nada. Genera un archivo con la tabla de decodificación.
 */
-void grabaTablaDecodificacion(char codigos[256][256], const char* archivo) {
-    FILE* f = fopen(archivo, "w");
-    if (!f) {
-        perror("Error al abrir el archivo para la tabla de decodificación");
-        return;
-    }
-    for (int i = 0; i < 256; i++) {
-        if (codigos[i][0] != '\0') {
-            fprintf(f, "%c: %s\n", i, codigos[i]);
-        }
-    }
-    fclose(f);
-}
-
+void grabaTablaDecodificacion(char codigos[256][256], const char* archivo);
 
 /*
     En la siguiente función "grabaCompresion", se escribe la codificación de un archivo
@@ -257,20 +160,7 @@ void grabaTablaDecodificacion(char codigos[256][256], const char* archivo) {
     Devuelve:
         - Nada. Genera el archivo comprimido con la codificación de Huffman.
 */
-void grabaCompresion(FILE* entrada, const char* salida, char codigos[256][256]) {
-    FILE* f = fopen(salida, "wb");
-    if (!f) {
-        perror("Error al abrir el archivo de salida");
-        return;
-    }
-    int byte;
-    while ((byte = fgetc(entrada)) != EOF) {
-        fputs(codigos[byte], f);
-    }
-    fclose(f);
-}
-
-
+void grabaCompresion(FILE* entrada, const char* salida, char codigos[256][256]);
 
 /*
     En la siguiente función "leerArchivo", se abre un archivo en modo lectura binaria
@@ -292,46 +182,4 @@ void grabaCompresion(FILE* entrada, const char* salida, char codigos[256][256]) 
     Devuelve:
         - Un puntero al archivo abierto, o NULL si no se puede abrir.
 */
-FILE* leerArchivo(char* nombreArchivo) {
-    FILE* p = fopen(nombreArchivo, "rb");
-    return p;
-}
-
-
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Uso: %s <archivo_entrada> \n", argv[0]);
-        return 1;
-    }
-
-    int i;
-    char* nombreArchivo = argv[1];
-    FILE* p = leerArchivo(nombreArchivo);
-    if (p == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo\n");
-        return 0;
-    }
-
-    int frecuencias[256] = {0}; 
-    contarFrecuencias(p, frecuencias);
-
-    NodoHuffman* lista = NULL;
-    for (i = 0; i < 256; i++) {
-        if (frecuencias[i] != 0) { 
-            lista = insertarOrdenado(lista, creaNodo(i, frecuencias[i]));
-        }
-    }
-
-    NodoHuffman* arbol = arbolHuffman(lista);
-
-    char codigos[256][256] = {0};
-    char codigo[256] = {0};
-    asignaArbol(arbol, codigo, 0, codigos);
-
-    rewind(p);
-    grabaTablaDecodificacion(codigos, "frecuencias.txt");
-    grabaCompresion(p, "codificacion.dat", codigos);
-
-    fclose(p);
-    return 0;
-}
+FILE* leerArchivo(char* nombreArchivo);
